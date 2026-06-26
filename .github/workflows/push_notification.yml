@@ -1,0 +1,24 @@
+name: Push Notification Diaria
+
+on:
+  schedule:
+    # PDT (verano): UTC-7 → 8PM = 03:00 UTC del día siguiente
+    # PST (invierno): UTC-8 → 8PM = 04:00 UTC del día siguiente
+    - cron: '0 3 * * 2-6'   # Mar-Sab 03:00 UTC = Lun-Vie 8PM PDT (verano)
+  workflow_dispatch:
+
+jobs:
+  send-notification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enviar notificación push
+        run: |
+          curl -X POST https://onesignal.com/api/v1/notifications \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Basic ${{ secrets.ONESIGNAL_API_KEY }}" \
+            -d '{
+              "app_id": "3358d682-3c99-43dc-9c6a-58cf3a2b24be",
+              "included_segments": ["Total Subscriptions"],
+              "headings": {"en": "¡El programa comienza en unos minutos!"},
+              "contents": {"en": "Atrapados en la Zona con Francisco Padilla comienza en unos minutos. ¡No te lo pierdas!"}
+            }'
