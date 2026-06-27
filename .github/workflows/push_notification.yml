@@ -1,10 +1,10 @@
 name: Push Notification Diaria
 
 on:
-  schedule:
-    # PDT (verano): UTC-7 → 8PM = 03:00 UTC del día siguiente
-    # PST (invierno): UTC-8 → 8PM = 04:00 UTC del día siguiente
-    - cron: '0 3 * * 2-6'   # Mar-Sab 03:00 UTC = Lun-Vie 8PM PDT (verano)
+  # schedule:  # Desactivado - usando cron-job.org
+      #   # PDT (verano): UTC-7 → 8PM = 03:00 UTC del día siguiente
+          #   # PST (invierno): UTC-8 → 8PM = 04:00 UTC del día siguiente
+              #   - cron: '0 3 * * 2-6'  # Mar-Sab 03:00 UTC = Lun-Vie 8PM PDT (verano)
   workflow_dispatch:
 
 jobs:
